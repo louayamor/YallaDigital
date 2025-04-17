@@ -1,6 +1,5 @@
 namespace YallaDigital.DTO;
 
-// Models/RegisterModel.cs
 using System.ComponentModel.DataAnnotations;
 
 public class RegisterModel
