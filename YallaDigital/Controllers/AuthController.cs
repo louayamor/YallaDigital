@@ -93,7 +93,6 @@ public class AuthController : ControllerBase
                 role = userRoles.FirstOrDefault()
             });
         }
-
         return Unauthorized("Invalid login");
     }
 }
