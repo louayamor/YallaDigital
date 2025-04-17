@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Data\" />
+      <Folder Include="Controllers\api\" />
       <Folder Include="Services\" />
       <Folder Include="Utilities\" />
     </ItemGroup>
@@ -15,6 +15,8 @@
     <ItemGroup>
       <PackageReference Include="CloudinaryDotNet" Version="1.27.5" />
       <PackageReference Include="MailKit" Version="4.11.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.4" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.4" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.4">
         <PrivateAssets>all</PrivateAssets>
