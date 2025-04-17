@@ -15,10 +15,10 @@ namespace YallaDigital.Models
         public string LastName { get; set; }
 
         [StringLength(500)]
-        public string ProfilePictureUrl { get; set; }
+        public string? ProfilePictureUrl { get; set; }
 
-        public string CompanyName { get; set; }
-        public string Industry { get; set; }
+        public string? CompanyName { get; set; }
+        public string? Industry { get; set; }
 
         public bool IsAdmin { get; set; } = false;
         public DateTime? LastLoginDate { get; set; }
