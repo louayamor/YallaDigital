@@ -15,4 +15,9 @@ public class RegisterModel
 
     [Required, MinLength(6)]
     public string Password { get; set; }
+    
+    public string? CompanyName { get; set; }
+    public string? Industry { get; set; }
+
+    public string Role { get; set; }
 }

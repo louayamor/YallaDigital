@@ -164,7 +164,6 @@ namespace YallaDigital.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CompanyName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -184,7 +183,6 @@ namespace YallaDigital.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Industry")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsAdmin")
@@ -222,7 +220,6 @@ namespace YallaDigital.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ProfilePictureUrl")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
