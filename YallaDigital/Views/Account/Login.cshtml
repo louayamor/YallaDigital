@@ -1,0 +1,18 @@
+@model YallaDigital.DTO.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Login" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input asp-for="Email" class="form-control" placeholder="Email" />
+    <input asp-for="Password" class="form-control" placeholder="Password" type="password" />
+    <label>
+        <input asp-for="RememberMe" /> Remember Me
+    </label>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>

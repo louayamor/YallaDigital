@@ -1,23 +1,25 @@
 ﻿@{
     var isAuthenticated = User.Identity?.IsAuthenticated ?? false;
     var userName = User.Identity?.Name ?? "";
+    var title = ViewData["Title"] ?? "Yalla Digital";
 }
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Yalla Digital</title>
+    <title>@title - Yalla Digital</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Yalla Digital</a>
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Yalla Digital</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
@@ -27,8 +29,9 @@
                     <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
                 </li>
             </ul>
+
             <ul class="navbar-nav">
-                @if (!isAuthenticated)
+                @if (!User.Identity?.IsAuthenticated ?? false)
                 {
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
@@ -40,7 +43,7 @@
                 else
                 {
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Hello, @userName</a>
+                        <span class="navbar-text me-2">Hello, @userName</span>
                     </li>
                     <li class="nav-item">
                         <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">

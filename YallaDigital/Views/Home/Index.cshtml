@@ -1,9 +1,22 @@
 ﻿@{
     ViewData["Title"] = "Home";
+    var isAuthenticated = User.Identity?.IsAuthenticated ?? false;
+    var userName = User.Identity?.Name ?? "";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome to Yalla Digital</h1>
     <p class="lead">Your trusted partner in digital marketing and innovation.</p>
-    <a class="btn btn-primary btn-lg" asp-controller="Account" asp-action="Register">Get Started</a>
+
+    @if (isAuthenticated)
+    {
+        <div class="alert alert-success mt-4" role="alert">
+            Hello, <strong>@userName</strong>! Glad to have you back 🎉
+        </div>
+        <a class="btn btn-success btn-lg" asp-controller="Dashboard" asp-action="Index">Go to Dashboard</a>
+    }
+    else
+    {
+        <a class="btn btn-primary btn-lg" asp-controller="Account" asp-action="Register">Get Started</a>
+    }
 </div>
