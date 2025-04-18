@@ -38,6 +38,12 @@ public class AccountController : Controller
         if (result.Succeeded)
         {
             await _signInManager.SignInAsync(user, isPersistent: false);
+
+            // ✅ Log authentication status
+            Console.WriteLine($"[Register] User '{user.Email}' registered successfully.");
+            Console.WriteLine($"[Register] IsAuthenticated: {User.Identity?.IsAuthenticated}");
+            Console.WriteLine($"[Register] Authenticated User: {User.Identity?.Name}");
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -64,6 +70,11 @@ public class AccountController : Controller
 
         if (result.Succeeded)
         {
+            // ✅ Log authentication status
+            Console.WriteLine($"[Login] User '{model.Email}' logged in successfully.");
+            Console.WriteLine($"[Login] IsAuthenticated: {User.Identity?.IsAuthenticated}");
+            Console.WriteLine($"[Login] Authenticated User: {User.Identity?.Name}");
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -77,6 +88,8 @@ public class AccountController : Controller
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();
+
+        Console.WriteLine("[Logout] User signed out.");
         return RedirectToAction("Index", "Home");
     }
 }

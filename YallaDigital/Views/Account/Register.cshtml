@@ -1,0 +1,18 @@
+@model YallaDigital.DTO.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Register" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input asp-for="FirstName" class="form-control" placeholder="First Name" />
+    <input asp-for="LastName" class="form-control" placeholder="Last Name" />
+    <input asp-for="Email" class="form-control" placeholder="Email" />
+    <input asp-for="Password" class="form-control" placeholder="Password" type="password" />
+    <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" type="password" />
+
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>

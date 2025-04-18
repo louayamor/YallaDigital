@@ -5,19 +5,18 @@ using System.ComponentModel.DataAnnotations;
 public class RegisterModel
 {
     [Required]
-    public string FirstName { get; set; }
+    [EmailAddress]
+    public string Email { get; set; } = string.Empty;
 
     [Required]
-    public string LastName { get; set; }
+    [DataType(DataType.Password)]
+    public string Password { get; set; } = string.Empty;
 
-    [Required, EmailAddress]
-    public string Email { get; set; }
+    [Required]
+    [Compare("Password")]
+    [DataType(DataType.Password)]
+    public string ConfirmPassword { get; set; } = string.Empty;
 
-    [Required, MinLength(6)]
-    public string Password { get; set; }
-    
-    public string? CompanyName { get; set; }
-    public string? Industry { get; set; }
-
-    public string Role { get; set; }
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
 }
