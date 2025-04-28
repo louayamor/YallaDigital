@@ -7,4 +7,7 @@ public class BlogPost
     public string Content { get; set; } = null!;
     public string? ImageUrl { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    
+    public List<BlogComment> Comments { get; set; } = new();
+
 }

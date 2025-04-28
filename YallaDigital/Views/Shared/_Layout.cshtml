@@ -65,6 +65,7 @@
                 </div>
             </div>
             <ul class="navbar-nav">
+                <!-- Social links -->
                 <li class="nav-item p-0">
                     <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="https://twitter.com/CreativeTim" target="_blank">
                         <i class="fab fa-twitter"></i>
@@ -83,27 +84,25 @@
                         <p class="d-lg-none d-xl-none">Instagram</p>
                     </a>
                 </li>
-                <li class="dropdown nav-item">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="fa fa-cogs d-lg-none d-xl-none"></i> Getting started
+
+                <!-- New navigation links -->
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Project" asp-action="Index">
+                        <i class="tim-icons icon-laptop"></i> Projects
                     </a>
-                    <div class="dropdown-menu dropdown-with-icons">
-                        <a href="https://demos.creative-tim.com/blk-design-system/docs/1.0/getting-started/overview.html" class="dropdown-item">
-                            <i class="tim-icons icon-paper"></i> Documentation
-                        </a>
-                        <a href="examples/register-page.html" class="dropdown-item">
-                            <i class="tim-icons icon-bullet-list-67"></i> Register Page
-                        </a>
-                        <a href="examples/landing-page.html" class="dropdown-item">
-                            <i class="tim-icons icon-image-02"></i> Landing Page
-                        </a>
-                        <a href="examples/profile-page.html" class="dropdown-item">
-                            <i class="tim-icons icon-single-02"></i> Profile Page
-                        </a>
-                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="BlogPost" asp-action="Index">
+                        <i class="tim-icons icon-book-bookmark"></i> Blogs
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Service" asp-action="Index">
+                        <i class="tim-icons icon-settings-gear-63"></i> Services
+                    </a>
                 </li>
 
-                @* Authentication Part *@
+                <!-- Authentication Part -->
                 @if (!User.Identity?.IsAuthenticated ?? false)
                 {
                     <li class="nav-item">
@@ -131,11 +130,11 @@
                     </li>
                 }
             </ul>
+
         </div>
     </div>
 </nav>
 <!-- End Navbar -->
-
 <main class="main-content" style="padding-top: 100px;">
     <div class="container mt-4">
         @RenderBody()

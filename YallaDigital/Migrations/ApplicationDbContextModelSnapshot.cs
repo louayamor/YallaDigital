@@ -246,6 +246,35 @@ namespace YallaDigital.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("YallaDigital.Models.BlogComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AuthorName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("BlogPostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogPostId");
+
+                    b.ToTable("BlogComments");
+                });
+
             modelBuilder.Entity("YallaDigital.Models.BlogPost", b =>
                 {
                     b.Property<int>("Id")
@@ -318,9 +347,8 @@ namespace YallaDigital.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IconUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -329,79 +357,6 @@ namespace YallaDigital.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Services");
-                });
-
-            modelBuilder.Entity("YallaDigital.Models.Subscriber", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("SubscribedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Subscribers");
-                });
-
-            modelBuilder.Entity("YallaDigital.Models.TeamMember", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Bio")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhotoUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TeamMembers");
-                });
-
-            modelBuilder.Entity("YallaDigital.Models.Testimonial", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClientName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClientPhotoUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Testimonials");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -455,6 +410,17 @@ namespace YallaDigital.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("YallaDigital.Models.BlogComment", b =>
+                {
+                    b.HasOne("YallaDigital.Models.BlogPost", "BlogPost")
+                        .WithMany("Comments")
+                        .HasForeignKey("BlogPostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BlogPost");
+                });
+
             modelBuilder.Entity("YallaDigital.Models.Project", b =>
                 {
                     b.HasOne("YallaDigital.Models.Service", "Service")
@@ -462,6 +428,11 @@ namespace YallaDigital.Migrations
                         .HasForeignKey("ServiceId");
 
                     b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("YallaDigital.Models.BlogPost", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("YallaDigital.Models.Service", b =>

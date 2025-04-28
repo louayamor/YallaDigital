@@ -12,8 +12,6 @@ namespace YallaDigital.Data
         public DbSet<Service> Services { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<BlogPost> BlogPosts { get; set; }
-        public DbSet<TeamMember> TeamMembers { get; set; }
-        public DbSet<Testimonial> Testimonials { get; set; }
-        public DbSet<Subscriber> Subscribers { get; set; }
+        public DbSet<BlogComment> BlogComments { get; set; }
     }
 }
