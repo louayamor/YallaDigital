@@ -1,4 +1,10 @@
-﻿<div class="wrapper">
+﻿@{
+    ViewData["Title"] = "Home";
+    var isAuthenticated = User.Identity?.IsAuthenticated ?? false;
+    var userName = User.Identity?.Name ?? "";
+}
+
+<div class="wrapper index-page">
     <div class="page-header header-filter">
         <div class="squares square1"></div>
         <div class="squares square2"></div>
@@ -8,32 +14,32 @@
         <div class="squares square6"></div>
         <div class="squares square7"></div>
 
+        <!-- Main Content -->
         <div class="container">
-            <div class="content-center brand">
-                @{
-                    ViewData["Title"] = "Home";
-                    var isAuthenticated = User.Identity?.IsAuthenticated ?? false;
-                    var userName = User.Identity?.Name ?? "";
+            <div class="content-center brand home-container">
+                <h1 class="home-title">
+                    Welcome to <span class="highlight">Yalla Digital</span>
+                </h1>
+                <p class="home-subtitle">
+                    Your trusted partner in digital marketing and innovation.
+                </p>
+
+                @if (isAuthenticated)
+                {
+                    <div class="welcome-message">
+                        Hello, <strong>@userName</strong>! Glad to have you back 🎉
+                    </div>
+                    <a class="btn btn-primary btn-lg mt-3" asp-area="" asp-controller="Dashboard" asp-action="Index">
+                        Go to Dashboard
+                    </a>
                 }
-
-                <div class="home-container">
-                    <h1 class="home-title">Welcome to <span class="highlight">Yalla Digital</span></h1>
-                    <p class="home-subtitle">Your trusted partner in digital marketing and innovation.</p>
-
-                    @if (isAuthenticated)
-                    {
-                        <div class="welcome-message">
-                            Hello, <strong>@userName</strong>! Glad to have you back 🎉
-                        </div>
-                        <a class="btn btn-primary btn-lg mt-3" asp-controller="Dashboard" asp-action="Index">Go to Dashboard</a>
-                    }
-                    else
-                    {
-                        <a class="btn btn-primary btn-lg mt-3" asp-controller="Account" asp-action="Register">Get Started</a>
-                    }
-                </div>
+                else
+                {
+                    <a class="btn btn-primary btn-lg mt-3" asp-area="" asp-controller="Account" asp-action="Register">
+                        Get Started
+                    </a>
+                }
             </div>
         </div>
-
     </div>
 </div>
