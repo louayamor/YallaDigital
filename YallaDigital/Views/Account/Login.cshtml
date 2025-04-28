@@ -3,16 +3,52 @@
     ViewData["Title"] = "Login";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="page-header">
+    <div class="container">
+        <div class="col-lg-5 col-md-8 ml-auto mr-auto">
+            <div class="card card-login">
+                <form asp-action="Login" method="post" class="form">
+                    <div class="card-header text-center">
+                        <h3 class="header">Login</h3>
+                    </div>
+                    <div class="card-body">
 
-<form asp-action="Login" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger text-center mb-3"></div>
 
-    <input asp-for="Email" class="form-control" placeholder="Email" />
-    <input asp-for="Password" class="form-control" placeholder="Password" type="password" />
-    <label>
-        <input asp-for="RememberMe" /> Remember Me
-    </label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="tim-icons icon-email-85"></i>
+                                </span>
+                            </div>
+                            <input asp-for="Email" class="form-control" placeholder="Email" />
+                        </div>
+                        <span asp-validation-for="Email" class="text-danger"></span>
 
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="tim-icons icon-lock-circle"></i>
+                                </span>
+                            </div>
+                            <input asp-for="Password" class="form-control" placeholder="Password" type="password" />
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+
+                        <div class="form-check text-left">
+                            <label class="form-check-label">
+                                <input asp-for="RememberMe" class="form-check-input" />
+                                <span class="form-check-sign"></span>
+                                Remember Me
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="card-footer text-center">
+                        <button type="submit" class="btn btn-primary btn-round btn-lg">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

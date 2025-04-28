@@ -3,16 +3,74 @@
     ViewData["Title"] = "Register";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="col-lg-6 mb-lg-auto">
+    <div class="card card-register">
+        <div class="card-header">
+            <img class="card-img" src="img/square1.png" alt="Card image">
+            <h4 class="card-title">@ViewData["Title"]</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Register" method="post" class="form">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-<form asp-action="Register" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <i class="tim-icons icon-single-02"></i>
+                        </div>
+                    </div>
+                    <input asp-for="FirstName" class="form-control" placeholder="First Name">
+                </div>
 
-    <input asp-for="FirstName" class="form-control" placeholder="First Name" />
-    <input asp-for="LastName" class="form-control" placeholder="Last Name" />
-    <input asp-for="Email" class="form-control" placeholder="Email" />
-    <input asp-for="Password" class="form-control" placeholder="Password" type="password" />
-    <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" type="password" />
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <i class="tim-icons icon-single-02"></i>
+                        </div>
+                    </div>
+                    <input asp-for="LastName" class="form-control" placeholder="Last Name">
+                </div>
 
-    <button type="submit" class="btn btn-primary">Register</button>
-</form>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <i class="tim-icons icon-email-85"></i>
+                        </div>
+                    </div>
+                    <input asp-for="Email" class="form-control" placeholder="Email">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <i class="tim-icons icon-lock-circle"></i>
+                        </div>
+                    </div>
+                    <input asp-for="Password" class="form-control" placeholder="Password" type="password">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <i class="tim-icons icon-lock-circle"></i>
+                        </div>
+                    </div>
+                    <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" type="password">
+                </div>
+
+                <div class="form-check text-left mb-3">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" required>
+                        <span class="form-check-sign"></span>
+                        I agree to the
+                        <a href="javascript:void(0)">terms and conditions</a>.
+                    </label>
+                </div>
+
+                <div class="card-footer text-center">
+                    <button type="submit" class="btn btn-info btn-round btn-lg">Get Started</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
