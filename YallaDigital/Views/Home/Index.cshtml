@@ -4,19 +4,19 @@
     var userName = User.Identity?.Name ?? "";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to Yalla Digital</h1>
-    <p class="lead">Your trusted partner in digital marketing and innovation.</p>
+<div class="home-container">
+    <h1 class="home-title">Welcome to <span class="highlight">Yalla Digital</span></h1>
+    <p class="home-subtitle">Your trusted partner in digital marketing and innovation.</p>
 
     @if (isAuthenticated)
     {
-        <div class="alert alert-success mt-4" role="alert">
+        <div class="welcome-message">
             Hello, <strong>@userName</strong>! Glad to have you back 🎉
         </div>
-        <a class="btn btn-success btn-lg" asp-controller="Dashboard" asp-action="Index">Go to Dashboard</a>
+        <a class="btn-action" asp-controller="Dashboard" asp-action="Index">Go to Dashboard</a>
     }
     else
     {
-        <a class="btn btn-primary btn-lg" asp-controller="Account" asp-action="Register">Get Started</a>
+        <a class="btn-action" asp-controller="Account" asp-action="Register">Get Started</a>
     }
 </div>
