@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace YallaDigital.Areas.Admin.Views.Shared;
+namespace YallaDigital.Areas.Admin.Views.Dashboard;
 
-public class _layout : PageModel
+public class Index : PageModel
 {
     public void OnGet()
     {

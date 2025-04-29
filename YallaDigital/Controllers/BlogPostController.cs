@@ -54,10 +54,28 @@ namespace YallaDigital.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Content,ImageUrl,CreatedAt")] BlogPost blogPost)
+        public async Task<IActionResult> Create([Bind("Title,Content")] BlogPost blogPost, IFormFile ImageFile)
         {
             if (ModelState.IsValid)
             {
+                // Save image if uploaded
+                if (ImageFile != null && ImageFile.Length > 0)
+                {
+                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+                    Directory.CreateDirectory(uploadsFolder); // Ensure folder exists
+
+                    var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
+                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await ImageFile.CopyToAsync(stream);
+                    }
+
+                    blogPost.ImageUrl = uniqueFileName;
+                }
+
+                blogPost.CreatedAt = DateTime.UtcNow; // Optional: set timestamp manually
                 _context.Add(blogPost);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

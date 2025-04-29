@@ -4,42 +4,55 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1 class="mb-4">Create Blog Post</h1>
 
-<h4>BlogPost</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow p-4">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Title" class="form-label fw-bold">Title</label>
+                    <input asp-for="Title" class="form-control" placeholder="Enter blog post title" />
+                    <span asp-validation-for="Title" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Content" class="form-label fw-bold">Content</label>
+                    <textarea asp-for="Content" class="form-control" rows="6" placeholder="Write your blog post content here..."></textarea>
+                    <span asp-validation-for="Content" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Upload Image</label>
+                    <input type="file" name="ImageFile" id="ImageFile" class="form-control" onchange="showFileName()" />
+                    <small id="fileNameDisplay" class="form-text text-muted mt-1">No file selected.</small>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Create</button>
+                </div>
+            </form>
+
+            <div class="mt-4">
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
             </div>
-            <div class="form-group">
-                <label asp-for="Content" class="control-label"></label>
-                <input asp-for="Content" class="form-control" />
-                <span asp-validation-for="Content" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@section Scripts {
+    <script>
+        function showFileName() {
+            var input = document.getElementById('ImageFile');
+            var fileNameDisplay = document.getElementById('fileNameDisplay');
 
+            if (input.files.length > 0) {
+                fileNameDisplay.textContent = 'Selected file: ' + input.files[0].name;
+            } else {
+                fileNameDisplay.textContent = 'No file selected.';
+            }
+        }
+    </script>
+}

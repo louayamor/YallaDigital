@@ -4,39 +4,47 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 class="mb-4">Blog Post Details</h1>
 
-<div>
-    <h4>BlogPost</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow p-4">
+            <h4 class="card-title mb-4 fw-bold">@Model.Title</h4>
+
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <div class="text-center mb-4">
+                    <img src="@Model.ImageUrl" alt="@Model.Title" class="img-fluid rounded" style="max-height: 300px;" />
+                </div>
+            }
+
+            <dl class="row">
+                <dt class="col-sm-3 fw-bold">
+                    Title
+                </dt>
+                <dd class="col-sm-9">
+                    @Model.Title
+                </dd>
+
+                <dt class="col-sm-3 fw-bold">
+                    Content
+                </dt>
+                <dd class="col-sm-9">
+                    @Model.Content
+                </dd>
+
+                <dt class="col-sm-3 fw-bold">
+                    Created At
+                </dt>
+                <dd class="col-sm-9">
+                    @Model.CreatedAt.ToString("MMMM dd, yyyy - HH:mm")
+                </dd>
+            </dl>
+
+            <div class="mt-4 d-flex justify-content-between">
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Edit</a>
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
 </div>

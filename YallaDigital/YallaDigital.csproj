@@ -9,6 +9,7 @@
     <ItemGroup>
       <Folder Include="Services\" />
       <Folder Include="Utilities\" />
+      <Folder Include="wwwroot\uploads\" />
     </ItemGroup>
 
     <ItemGroup>
