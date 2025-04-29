@@ -1,9 +1,9 @@
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using YallaDigital.Data;
 using YallaDigital.Models;
@@ -20,9 +20,18 @@ namespace YallaDigital.Controllers
         }
 
         // GET: BlogPost
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchTerm)
         {
-            return View(await _context.BlogPosts.ToListAsync());
+            ViewData["SearchTerm"] = searchTerm;
+
+            var blogPosts = _context.BlogPosts.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                blogPosts = blogPosts.Where(b => b.Title.Contains(searchTerm) || b.Content.Contains(searchTerm));
+            }
+
+            return View(await blogPosts.ToListAsync());
         }
 
         // GET: BlogPost/Details/5
@@ -50,8 +59,6 @@ namespace YallaDigital.Controllers
         }
 
         // POST: BlogPost/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title,Content")] BlogPost blogPost, IFormFile ImageFile)
@@ -100,8 +107,6 @@ namespace YallaDigital.Controllers
         }
 
         // POST: BlogPost/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,ImageUrl,CreatedAt")] BlogPost blogPost)

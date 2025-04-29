@@ -1,38 +1,42 @@
 @model IEnumerable<YallaDigital.Models.BlogPost>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Blog Posts";
 }
 
 <h1>Blog Posts</h1>
 
+<form asp-action="Index" method="get" class="form-inline mb-4">
+    <div class="input-group">
+        <input type="text" name="searchTerm" value="@ViewData["SearchTerm"]" class="form-control" placeholder="Search by Title or Content" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+
 <p>
-    <a class="btn btn-primary" asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New Post</a>
 </p>
 
-@if (!Model.Any())
-{
-    <p>No cards yet.</p>
-}
-else
-{
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-md-4">
-                <div class="card mb-4">
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                {
                     <img src="~/uploads/@item.ImageUrl" class="card-img-top" alt="@item.Title" />
-                    <div class="card-body">
-                        <h5 class="card-title">@item.Title</h5>
-                        <p class="card-text">
-                            @item.Content.Length > 100 ? @item.Content.Substring(0, 100) + "..." : @item.Content
-                        </p>
-                        <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-warning">Edit</a>
-                        <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-info">Details</a>
-                        <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger">Delete</a>
-                    </div>
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@item.Title</h5>
+                    <p class="card-text">
+                        @item.Content.Length > 100 ? @item.Content.Substring(0, 100) + "..." : @item.Content
+                    </p>
+                    <p class="card-text"><small class="text-muted">Created on @item.CreatedAt.ToString("MM/dd/yyyy")</small></p>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
                 </div>
             </div>
-        }
-    </div>
-}
+        </div>
+    }
+</div>

@@ -10,17 +10,44 @@ namespace YallaDigital.Controllers
     // [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
 
-        public UserController(ApplicationDbContext context)
+        public UserController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
+
         // GET: User
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, string roleFilter)
         {
-            var users = await _context.Users.ToListAsync();
+            var usersQuery = _userManager.Users.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                usersQuery = usersQuery.Where(u =>
+                    u.FirstName.Contains(searchString) ||
+                    u.LastName.Contains(searchString) ||
+                    u.Email.Contains(searchString) ||
+                    u.PhoneNumber.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(roleFilter))
+            {
+                var usersInRole = await _userManager.GetUsersInRoleAsync(roleFilter);
+                usersQuery = usersQuery.Where(u => usersInRole.Select(x => x.Id).Contains(u.Id));
+            }
+
+            var users = await usersQuery.ToListAsync();
+
+            ViewData["Roles"] = new List<string> { "Admin", "User" };
+            ViewData["CurrentSearch"] = searchString;
+            ViewData["CurrentRole"] = roleFilter;
+
             return View(users);
         }
 
@@ -47,15 +74,19 @@ namespace YallaDigital.Controllers
             user.UserName = user.Email; 
             user.EmailConfirmed = true;
 
-            var passwordHasher = new PasswordHasher<ApplicationUser>();
-            user.PasswordHash = passwordHasher.HashPassword(user, Password);
+            var result = await _userManager.CreateAsync(user, Password);
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "Admin");
+                return RedirectToAction(nameof(Index));
+            }
 
-            user.IsAdmin = true;
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
 
-            _context.Add(user);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
+            return View(user);
         }
 
         // GET: User/Edit/5
