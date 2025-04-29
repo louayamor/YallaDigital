@@ -41,15 +41,15 @@ YallaDigital/
 
 ### ✅ Use Case Diagram
 
-![Use Case Diagram](screenshots/usecase.png)
+![Use Case Diagram](YallaDigital/screenshots/usecase.png)
 
 ### ✅ Class Diagram
 
-![Class Diagram](screenshots/classdiagram.png)
+![Class Diagram](YallaDigital/screenshots/classdiagram.png)
 
 ### ✅ Authentication Sequence Diagram
 
-![Authentication Sequence Diagram](screenshots/sequencediagram.png)
+![Authentication Sequence Diagram](YallaDigital/screenshots/sequencediagram.png)
 
 ---
 
