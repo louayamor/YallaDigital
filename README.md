@@ -93,7 +93,7 @@ YallaDigital/
 
 ## ✍️ Author
 
-- Your Name – [@louayamor](https://github.com/louayamor)
+- [@louayamor](https://github.com/louayamor)
 
 ---
 
